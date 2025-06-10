@@ -246,3 +246,12 @@ img.currentLoc:hover {
     text-decoration: none;
     color: #333;
 }
+
+.success-msg{
+    color: green;
+    text-align: center;
+}
+.error-msg{
+    color: red;
+    text-align: center;
+}

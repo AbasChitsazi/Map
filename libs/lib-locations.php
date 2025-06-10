@@ -1,31 +1,33 @@
 <?php
 
+
 function insertLocation($params)
 {
-    global $locationTypes;
     $validLatLng = validateLatLng($params['lat'], $params['lng']);
     if (!$validLatLng['status']) {
         jsonresponse($validLatLng['status'], $validLatLng['message']);
         return;
     }
-    if (mb_strlen($params['title'], 'UTF-8') <= 4) {
-        jsonresponse(false, 'عنوان باید بیشتر از 4 کاراکتر باشد');
+    if (mb_strlen($params['title'], 'UTF-8') < 3) {
+        jsonresponse(false, 'عنوان باید بیشتر از 2 کاراکتر باشد');
         return;
     }
     $validtitle = sanitizeInput($params['title']);
-    if (!is_numeric($params['type']) && !in_array($params['type'], $locationTypes)) {
+    if (!array_key_exists($params['type'], locationTypes)) {
         jsonresponse(false, 'لطفا از نوع های موجود انتخاب کنید');
         return;
     }
-    global $pdo;
-    $sql = "INSERT INTO locations(user_id,title,lat,lng,type) VALUES (?,?,?,?,?)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([1, $validtitle, $validLatLng['data']['lat'], $validLatLng['data']['lng'], $params['type']]);
-    if ($stmt->rowCount()) {
+    try {
+        global $pdo;
+        $sql = "INSERT INTO locations(user_id,title,lat,lng,type) VALUES (?,?,?,?,?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([1, $validtitle, $validLatLng['data']['lat'], $validLatLng['data']['lng'], $params['type']]);
         jsonresponse(true, 'اطلاعات با موفقیت ثبت شد منتظر تایید مدیر باشید.');
-    } else {
+    } catch (PDOException $e) {
         jsonresponse(false, 'خطایی در ثبت اطلاعات رخ داد. لطفا دوباره تلاش کنید.');
+
     }
+
 }
 
 function validateLatLng($lat, $lng)

@@ -59,8 +59,7 @@
                             <input type="submit" value=" ثبت ">
                         </div>
                     </div>
-                    <div class="ajax-result"><?php
-                    ?></div>
+                    <div class="ajax-result"></div>
                 </form>
             </div>
         </div>

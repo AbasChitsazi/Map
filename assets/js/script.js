@@ -17,15 +17,25 @@ map.on('dblclick', function (e) {
 });
 
 
-// jquery 
 $(document).ready(function () {
-	// clode modal
+
+	let canSendRequest = true;
+
+	// close modal
 	$('.close').click(function () {
 		$('.modal-overlay').fadeOut();
 	});
+
 	// handle form
 	$('form#addLocationForm').submit(function (e) {
 		e.preventDefault();
+		let msg = $('.ajax-result');
+		if (!canSendRequest) {
+			msg.stop(true, true).hide().html("<p class='error-msg'>لطفا از ارسال درخواست های مکرر خودداری فرمایید</p>").fadeIn();
+			return;
+		}
+		canSendRequest = false;
+
 		// ajax request
 		var form = $(this);
 		var result = form.find('.ajax-result');
@@ -35,8 +45,27 @@ $(document).ready(function () {
 			data: form.serialize(),
 			dataType: 'json',
 			success: function (response) {
-				result.html(response.message);
-			}
+				if (response.status) {
+					result.stop(true, true).hide().html("<p class='success-msg'>" + response.message + "</p>").fadeIn();
+					setTimeout(() => {
+						canSendRequest = true;
+					}, 10000);
+				} else {
+					result.stop(true, true).hide().html("<p class='error-msg'>" + response.message + "</p>").fadeIn();
+					setTimeout(() => {
+						canSendRequest = true;
+					}, 1000);
+				}
+				setTimeout(() => {
+					result.fadeOut();
+				}, 3000);
+			},
+			error: function () {
+				result.stop(true, true).hide().html("<p class='error-msg'>خطا در ارسال درخواست</p>").fadeIn();
+				setTimeout(() => {
+					canSendRequest = true;
+				}, 1000);
+			},
 		});
 	});
 });
