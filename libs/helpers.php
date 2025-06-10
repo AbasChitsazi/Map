@@ -42,3 +42,17 @@ function dd($input)
     print_r($input);
     echo '</pre>';
 }
+function showMsg($status, $message, $info = null)
+{
+    return $_SESSION['msg'] = [
+        'status' => $status,
+        'message' => $message,
+        'info' => $info
+    ];
+}
+
+function jsonresponse($status, $message) {
+    header('Content-Type: application/json');
+    echo json_encode(['status' => $status, 'message' => $message], JSON_UNESCAPED_UNICODE);
+    exit();
+}

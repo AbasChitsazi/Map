@@ -8,9 +8,35 @@ const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution: 'Personal Map Project'
 }).addTo(map);
 
-map.on('dblclick', function(e) {
+//get lat lng in modal
+map.on('dblclick', function (e) {
 	L.marker(e.latlng).addTo(map);
-    $('#lat-display').val(e.latlng.lat);
+	$('#lat-display').val(e.latlng.lat);
 	$('#lng-display').val(e.latlng.lng);
-    $('.modal-overlay').fadeIn();
+	$('.modal-overlay').fadeIn();
+});
+
+
+// jquery 
+$(document).ready(function () {
+	// clode modal
+	$('.close').click(function () {
+		$('.modal-overlay').fadeOut();
+	});
+	// handle form
+	$('form#addLocationForm').submit(function (e) {
+		e.preventDefault();
+		// ajax request
+		var form = $(this);
+		var result = form.find('.ajax-result');
+		$.ajax({
+			url: form.attr('action'),
+			method: "POST",
+			data: form.serialize(),
+			dataType: 'json',
+			success: function (response) {
+				result.html(response.message);
+			}
+		});
+	});
 });
