@@ -51,6 +51,8 @@
             font-family: iransans;
             display: inline-block;
             margin: 0 3px;
+            min-width: 75px;
+  text-align: center;
         }
 
         .statusToggle.active {
@@ -123,19 +125,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php for ($i = 0; $i < 10; $i++): ?>
+                    <?php if (!empty($locations)): ?>
+                    <?php foreach ($locations as $key => $value):?>
                         <tr>
-                            <td>نام مکان اینجا</td>
-                            <td class="text-center">12 خرداد 95</td>
-                            <td class="text-center">25.454</td>
-                            <td class="text-center">34.456</td>
+                            <td><?= $value->title ?></td>
+                            <td class="text-center"><?=verta($value->created_at)->format("d F Y")?></td>
+                            <td class="text-center"><?= $value->lat ?></td>
+                            <td class="text-center"><?= $value->lng?></td>
                             <td>
-                                <button class="statusToggle active" data-loc='111'>فعال</button>
-                                <button class="statusToggle" data-loc='111'>غیر فعال</button>
-                                <button class="preview" data-loc='111'>👁️‍🗨️</button>
+                                <?php if($value->status): ?>
+                                <button class="statusToggle active" data-loc='<?=$value->id?>'>فعال</button>
+                                <?php else: ?>
+                                <button class="statusToggle" data-loc='<?=$value->id?>'>غیر فعال</button>
+                                <?php endif; ?>
+                                <button class="preview" style="margin-right: 15px;" data-loc='<?=$value->id?>'>👁️‍🗨️</button>
                             </td>
                         </tr>
-                    <?php endfor; ?>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                    <tr>
+                        <td colspan="5" class="text-center">هیچ داده ای وجود ندارد</td>
+                    </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>

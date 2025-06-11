@@ -28,5 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (!adminLoggedin()) {
     include "views/adm-auth-views.php";
 } else {
+
+    $params = $_GET ?? [];
+    $locations = getlocation($params);
     include "views/adm-views.php";
 }

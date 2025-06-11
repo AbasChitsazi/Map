@@ -46,3 +46,19 @@ function validateLatLng($lat, $lng)
         ]
     ];
 }
+
+
+function getlocation($params = []){
+    global $pdo;
+    $conditions = '';
+    if (isset($params['status'])) {
+        if (!in_array($params['status'], [0, 1])) {
+            return;
+        }
+        $conditions = " WHERE status = " . $params['status'];
+    }
+    $sql = "select * from locations" . $conditions;
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
