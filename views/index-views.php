@@ -25,7 +25,7 @@
     </div>
     <div class="modal-overlay" style="display: none;">
         <div class="modal">
-            <span class="close">x</span>
+            <span class="close"><img width="24" height="24" src="https://img.icons8.com/color/48/delete-sign--v1.png" alt="delete-sign--v1"/></span>
             <h3 class="modal-title">ثبت لوکیشن</h3>
             <div class="modal-content">
                 <form id='addLocationForm' action="<?=BASE_URL.'/process/addLocation.php'?>" method="post">

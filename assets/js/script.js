@@ -13,6 +13,7 @@ map.on('dblclick', function (e) {
 	L.marker(e.latlng).addTo(map);
 	$('#lat-display').val(e.latlng.lat);
 	$('#lng-display').val(e.latlng.lng);
+	$('#l-title').val('');
 	$('.modal-overlay').fadeIn();
 });
 
@@ -65,6 +66,9 @@ $(document).ready(function () {
 				setTimeout(() => {
 					canSendRequest = true;
 				}, 1000);
+				setTimeout(() => {
+					result.fadeOut();
+				}, 3000);
 			},
 		});
 	});

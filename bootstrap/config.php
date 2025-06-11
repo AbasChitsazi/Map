@@ -16,3 +16,17 @@ try {
 } catch (PDOException $e) {
     diePage($e->getMessage()."-- PLEASE CHECK bootstrap/config.php --");
 }
+
+
+$Admin_Config = [
+    'admin' => [
+        'pass' => '$2y$10$83EBNyAWsFAqvfHsiKFl6OrBPPpidabDCOv1VWpMcGnKDmC2JhI9W',
+        // pass => 789
+        'show_name' => "ادمین"
+    ],
+    'abbas' => [
+        'pass' => '$2y$10$B.mGQlP/Vxrijg7qYakE4OsbGBFBoSzrOW9.IMxnVwAShpJpWcal2',
+        // pass => abbas
+        'show_name' => "عباس"
+    ]
+];

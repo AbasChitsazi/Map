@@ -50,6 +50,7 @@ body,
     left: 0;
     bottom: 0;
     z-index: 1;
+    margin: 10px;
 }
 
 #map {
@@ -107,6 +108,7 @@ body,
     position: relative;
 }
 
+
 .modal-overlay .modal .close {
     position: absolute;
     top: 7px;
@@ -120,8 +122,6 @@ body,
     padding: 0;
     margin: 0 0 30px 0;
 }
-
-.modal-overlay .modal h3.modal-content {}
 
 .field-row {
     margin: 10px 0;
@@ -164,6 +164,12 @@ body,
     height: 34px;
 }
 
+input[type="submit"].sub-adm {
+    background: #007bec;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 6px;
+}
 input[type="submit"] {
     background: #007bec;
     color: #fff;
@@ -247,11 +253,20 @@ img.currentLoc:hover {
     color: #333;
 }
 
-.success-msg{
+.success-msg {
     color: green;
     text-align: center;
+    margin-right: 85px;
 }
-.error-msg{
+
+.error-msg {
     color: red;
     text-align: center;
+    margin-right: 85px;
 }
+.error-msg-adm {
+    color: red;
+    text-align: center;
+
+}
+
