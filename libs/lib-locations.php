@@ -18,16 +18,23 @@ function insertLocation($params)
         return;
     }
     try {
+        if (isset($_SESSION['loginadmin'])) {
+            $status = 1;
+            $id = $_SESSION['loginadmin']['id'];
+        } elseif (isset($_SESSION['loginuser'])) {
+            $status = $_SESSION['loginuser'][0]['is_verified'];
+            $id = $_SESSION['loginuser'][0]['id'];
+        }
+
         global $pdo;
-        $sql = "INSERT INTO locations(user_id,title,lat,lng,type) VALUES (?,?,?,?,?)";
+        $sql = "INSERT INTO locations(user_id,title,lat,lng,type,status) VALUES (?,?,?,?,?,?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([1, $validtitle, $validLatLng['data']['lat'], $validLatLng['data']['lng'], $params['type']]);
-        jsonresponse(true, 'اطلاعات با موفقیت ثبت شد منتظر تایید مدیر باشید.');
+        $stmt->execute([$id, $validtitle, $validLatLng['data']['lat'], $validLatLng['data']['lng'], $params['type'], $status]);
+        $msg = $status ? 'ادمین محترم اطلاعات با موفقیت ثبت شد' : 'اطلاعات با موفقیت ثبت شد منتظر تایید مدیر باشید.';
+        jsonresponse(true, $msg);
     } catch (PDOException $e) {
-        jsonresponse(false, 'خطایی در ثبت اطلاعات رخ داد. لطفا دوباره تلاش کنید.');
-
+        jsonresponse(false,'خطایی در ثبت اطلاعات روی داده است لطفا با ادمین تماس برقرار کنید.');
     }
-
 }
 
 function validateLatLng($lat, $lng)
@@ -48,7 +55,8 @@ function validateLatLng($lat, $lng)
 }
 
 
-function getlocation($params = []){
+function getlocation($params = [])
+{
     global $pdo;
     $conditions = '';
     if (isset($params['status'])) {

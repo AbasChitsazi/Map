@@ -1,5 +1,5 @@
-const defaultLocation = [35.722, 51.328];
-const defaultZoom = 15
+const defaultLocation = [35.7161275,51.369995,];
+const defaultZoom = 12
 
 const map = L.map('map').setView(defaultLocation, defaultZoom);
 
@@ -57,15 +57,6 @@ $(document).ready(function () {
 						canSendRequest = true;
 					}, 1000);
 				}
-				setTimeout(() => {
-					result.fadeOut();
-				}, 3000);
-			},
-			error: function () {
-				result.stop(true, true).hide().html("<p class='error-msg'>خطا در ارسال درخواست</p>").fadeIn();
-				setTimeout(() => {
-					canSendRequest = true;
-				}, 1000);
 				setTimeout(() => {
 					result.fadeOut();
 				}, 3000);

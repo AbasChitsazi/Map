@@ -22,7 +22,7 @@
         }
 
         .main-panel {
-            width: 1000px;
+            width: 800px;
             margin: 30px auto;
         }
 
@@ -121,7 +121,7 @@
                         <th style="width:15%" class="text-center">تاریخ ثبت</th>
                         <th style="width:10%" class="text-center">lat</th>
                         <th style="width:10%" class="text-center">lng</th>
-                        <th style="width:25%">وضعیت</th>
+                        <th style="width:20%;padding: 0px 21px;">وضعیت</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -144,7 +144,7 @@
                     <?php endforeach; ?>
                     <?php else: ?>
                     <tr>
-                        <td colspan="5" class="text-center">هیچ داده ای وجود ندارد</td>
+                        <td colspan="5" class="text-center" style="padding: 10px 5px;" >هیچ داده ای وجود ندارد</td>
                     </tr>
                     <?php endif; ?>
                 </tbody>

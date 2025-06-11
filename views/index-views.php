@@ -9,13 +9,17 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="<?=BASE_URL?>/assets/css/styles.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
+    
 </head>
 
 <body>
     <div class="main">
         <div class="head">
             <input type="text" id="search" placeholder="دنبال کجا می گردی؟">
+            <?php if(isset($_SESSION['loginuser'])):?>
+                <a href="?logout=true"><button style="cursor: pointer;"  class="exit">خروج (<?= $_SESSION['loginuser'][0]['name']?>)</button></a>
+                <?php endif; ?>
+                
         </div>
         <div class="mapContainer">
             <div id="map">
@@ -32,8 +36,8 @@
                     <div class="field-row">
                         <div class="field-title">مختصات</div>
                         <div class="field-content">
-                            <input type="text" name='lat' id="lat-display" readonly style="width: 160px;text-align: center;">
-                            <input type="text" name='lng' id="lng-display" readonly style="width: 160px;text-align: center;">
+                            <input type="text" name='lat' id="lat-display" readonly style="width: 45%;text-align: center;">
+                            <input type="text" name='lng' id="lng-display" readonly style="width: 45%;text-align: center;">
                         </div>
                     </div>
                     <div class="field-row">
@@ -68,6 +72,5 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="<?=BASE_URL?>/assets/js/script.js<?= "?v=" . rand(10000, 50000) ?>"></script>
 </body>
-
 
 </html>

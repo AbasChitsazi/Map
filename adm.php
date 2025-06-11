@@ -5,7 +5,7 @@ include "bootstrap/init.php";
 
 if (isset($_GET['logout'])) {
     if ($_GET['logout'] == 1) {
-        unset($_SESSION['login']);
+        unset($_SESSION['loginadmin']);
         showMsg(true,'با موفقیت خارج شدید');
         header("Location: " . BASE_URL . "/adm.php");
         exit;
@@ -17,7 +17,7 @@ if (isset($_GET['logout'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $login = login($_POST);
+    $login = loginadmin($_POST);
     if (!$login['status']) {
         showMsg($login['status'], $login['message']);
         header("Location: " . BASE_URL . "/adm.php");

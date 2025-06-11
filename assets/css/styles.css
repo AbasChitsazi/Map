@@ -100,18 +100,17 @@ body,
 }
 
 .modal-overlay .modal {
-    width: 50%;
     background: #fff;
-    padding: 20px;
-    border-radius: 7px;
-    margin-top: -100px;
+    padding: 34px;
+    border-radius: 24px;
+    margin-top: -19px;
     position: relative;
 }
 
 
 .modal-overlay .modal .close {
     position: absolute;
-    top: 7px;
+    top: 15px;
     left: 15px;
     color: #a90909;
     font-size: 20px;
@@ -148,7 +147,7 @@ body,
 .field-row select,
 .field-row input {
     line-height: 36px;
-    padding: 0 10px;
+    padding: 0 5px;
     border-radius: 5px;
     border: 1px solid #e7e7e7;
     font-size: 16px;
@@ -157,7 +156,7 @@ body,
 }
 
 #l-title {
-    width: 91%;
+    width: 94%;
 }
 
 #l-type {
@@ -170,6 +169,7 @@ input[type="submit"].sub-adm {
     cursor: pointer;
     margin-right: 6px;
 }
+
 input[type="submit"] {
     background: #007bec;
     color: #fff;
@@ -264,9 +264,23 @@ img.currentLoc:hover {
     text-align: center;
     margin-right: 85px;
 }
+
 .error-msg-adm {
     color: red;
     text-align: center;
 
 }
-
+.exit{
+float: left;
+  border: 1px solid #d8d6d2;
+  border-radius: 42px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 10px;
+  padding: 10px 20px;
+  direction: rtl;
+  opacity: 0.9;
+  outline: 0;
+  margin-top: 61px;
+  margin-left: 20px;
+}
