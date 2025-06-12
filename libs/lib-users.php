@@ -5,6 +5,10 @@ function adminLoggedin()
 {
     return isset($_SESSION['loginadmin']) ? true : false;
 }
+function userloggedin()
+{
+    return isset($_SESSION['loginuser']) ? true : false;
+}
 
 function loginadmin($params)
 {

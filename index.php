@@ -2,7 +2,7 @@
 
 include "bootstrap/init.php";
 if (isset($_GET['logout'])) {
-    if (!isset($_SESSION['loginuser'])) {
+    if (!userloggedin()) {
         header("Location: " . BASE_URL);
         exit;
     }
@@ -14,12 +14,12 @@ if (isset($_GET['logout'])) {
 }
 
 if (isset($_GET['loc']) && is_numeric($_GET['loc'])) {
-    if (!isset($_SESSION['loginadmin'])) {
+    if (!adminLoggedin()) {
         header("Location: " . BASE_URL);
         exit;
     }
     $location = getloc($_GET['loc']);
-    // dd($location);
+
 }
 
 include BASE_PATH . "/views/index-views.php";

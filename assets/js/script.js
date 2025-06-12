@@ -17,14 +17,6 @@ map.on('dblclick', function (e) {
 	$('.modal-overlay').fadeIn();
 });
 
-map.on('locationfound',function(e){
-	L.marker(e.latlng).addTo(map).bindPopup("You Are Here").openPopup();
-})
-function locate(){
-
-	map.locate({setView:true ,maxZoom:defaultZoom});
-}
-
 $(document).ready(function () {
 
 	let canSendRequest = true;

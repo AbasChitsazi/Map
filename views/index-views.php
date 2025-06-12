@@ -27,20 +27,21 @@
                     <span class="loc-title">دانشگاه شریف</span>
                 </div>
             </div>
-            <?php if (isset($_SESSION['loginuser'])): ?>
+            <?php if (userloggedin()): ?>
                 <a href="?logout=true"><button style="cursor: pointer;" class="exit">خروج (<?= $_SESSION['loginuser'][0]['name'] ?>)</button></a>
             <?php endif; ?>
-            <?php if (isset($_SESSION['loginadmin'])): ?>
+            <?php if (adminLoggedin()): ?>
                 <button style="cursor: pointer;" class="exit">ادمین(<?= $_SESSION['loginadmin']['show_name'] ?>)</button>
             <?php endif; ?>
         </div>
         <div class="mapContainer">
             <div id="map">
                 <div id="map" style="width: 600px; height: 400px;"></div>
+                <?php if (userloggedin() || adminLoggedin()): ?>
             </div>
-
             <img src="<?= BASE_URL ?>/assets/img/current.png" class="currentLoc">
         </div>
+    <?php endif; ?>
     </div>
     </div>
     </div>
@@ -98,13 +99,26 @@
             });
         </script>
     <?php endif ?>
-            <script>
-                $(document).ready(function(){
-                    $('img.currentLoc').click(function(){
-                        locate();
-                    })
+    <?php if (userloggedin() || adminLoggedin()): ?>
+        <script>
+            map.on('locationfound', function(e) {
+                L.marker(e.latlng).addTo(map).bindPopup("You Are Here").openPopup();
+            })
+
+            function locate() {
+
+                map.locate({
+                    setView: true,
+                    maxZoom: 14
                 });
-            </script>
+            }
+            $(document).ready(function() {
+                $('img.currentLoc').click(function() {
+                    locate();
+                })
+            });
+        </script>
+    <?php endif; ?>
 </body>
 
 </html>
