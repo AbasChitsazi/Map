@@ -228,11 +228,12 @@ option {
 }
 
 .search-results {
-    margin: -3px 50px 0 0;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 12px;
-    border-radius: 0 0 10px 10px;
-    border: 1px solid #d9d7d4;
+margin: -5px 50px 0 0;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 12px;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #d9d7d4;
+  width: 416px;
 }
 
 .result-item {
@@ -313,6 +314,6 @@ float: left;
   direction: rtl;
   opacity: 0.9;
   outline: 0;
-  margin-top: 61px;
+  margin-top: -97px;
   margin-left: 20px;
 }

@@ -16,6 +16,17 @@
     <div class="main">
         <div class="head">
             <input type="text" id="search" placeholder="دنبال کجا می گردی؟">
+            <div class="clear"></div>
+            <div class="search-results">
+                <div class="result-item" data-lat='111' data-lng='222'>
+                    <span class="loc-type">رستوران</span>
+                    <span class="loc-title">رستوران و قوه خانه سنتی سون لرن</span>
+                </div>
+                <div class="result-item" data-lat='111' data-lng='222'>
+                    <span class="loc-type">دانشگاه</span>
+                    <span class="loc-title">دانشگاه شریف</span>
+                </div>
+            </div>
             <?php if (isset($_SESSION['loginuser'])): ?>
                 <a href="?logout=true"><button style="cursor: pointer;" class="exit">خروج (<?= $_SESSION['loginuser'][0]['name'] ?>)</button></a>
             <?php endif; ?>
@@ -27,7 +38,11 @@
             <div id="map">
                 <div id="map" style="width: 600px; height: 400px;"></div>
             </div>
+
+            <img src="<?= BASE_URL ?>/assets/img/current.png" class="currentLoc">
         </div>
+    </div>
+    </div>
     </div>
     <div class="modal-overlay" style="display: none;">
         <div class="modal">
@@ -83,6 +98,13 @@
             });
         </script>
     <?php endif ?>
+            <script>
+                $(document).ready(function(){
+                    $('img.currentLoc').click(function(){
+                        locate();
+                    })
+                });
+            </script>
 </body>
 
 </html>
