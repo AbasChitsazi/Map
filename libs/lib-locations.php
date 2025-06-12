@@ -20,12 +20,11 @@ function insertLocation($params)
     try {
         if (isset($_SESSION['loginadmin'])) {
             $status = 1;
-            $id = $_SESSION['loginadmin']['id'];
+            $id = 0;
         } elseif (isset($_SESSION['loginuser'])) {
             $status = $_SESSION['loginuser'][0]['is_verified'];
             $id = $_SESSION['loginuser'][0]['id'];
         }
-
         global $pdo;
         $sql = "INSERT INTO locations(user_id,title,lat,lng,type,status) VALUES (?,?,?,?,?,?)";
         $stmt = $pdo->prepare($sql);
@@ -69,4 +68,26 @@ function getlocation($params = [])
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+function getloc($id){
+    global $pdo;
+    $sql = "SELECT * FROM locations WHERE id = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function statusToggle($id){
+    global $pdo;
+    $sql = "UPDATE locations set status = (1-status) WHERE id = ?";
+    $stmt = $pdo ->prepare($sql);
+    $stmt->execute([$id]);
+    return jsonresponse($stmt->rowCount(),$stmt->rowCount());
+}
+function deleteloc($id){
+    global $pdo;
+    $sql = "DELETE FROM locations WHERE id = ?";
+    $stmt = $pdo ->prepare($sql);
+    $stmt->execute([$id]);
+    return jsonresponse($stmt->rowCount(),$stmt->rowCount());
 }

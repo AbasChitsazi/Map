@@ -30,7 +30,7 @@ function loginadmin($params)
 
 function loginUser($params)
 {
-    $getUserExist = getUserExist($params['user-email']);
+    $getUserExist = checkUserExist($params['user-email']);
     if (!$getUserExist) {
         return $_SESSION['msg'] = [
             'status' => false,
@@ -58,7 +58,7 @@ function loginUser($params)
 function registerUser($params)
 {
     global $pdo;
-    $getUserExist = getUserExist($params['user-email']);
+    $getUserExist = checkUserExist($params['user-email']);
     if ($getUserExist) {
         return $_SESSION['msg'] = [
             'status' => false,
@@ -83,7 +83,7 @@ function registerUser($params)
     ];
 }
 
-function getUserExist($email)
+function checkUserExist($email)
 {
     global $pdo;
     $sql = "SELECT COUNT(*) FROM users WHERE email = ?";

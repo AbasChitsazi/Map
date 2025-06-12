@@ -7,19 +7,21 @@
     <title><?= SITE_TITLE ?></title>
     <link href="favicon.png" rel="shortcut icon" type="image/png">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="<?=BASE_URL?>/assets/css/styles.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/styles.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
+
 </head>
 
 <body>
     <div class="main">
         <div class="head">
             <input type="text" id="search" placeholder="دنبال کجا می گردی؟">
-            <?php if(isset($_SESSION['loginuser'])):?>
-                <a href="?logout=true"><button style="cursor: pointer;"  class="exit">خروج (<?= $_SESSION['loginuser'][0]['name']?>)</button></a>
-                <?php endif; ?>
-                
+            <?php if (isset($_SESSION['loginuser'])): ?>
+                <a href="?logout=true"><button style="cursor: pointer;" class="exit">خروج (<?= $_SESSION['loginuser'][0]['name'] ?>)</button></a>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['loginadmin'])): ?>
+                <button style="cursor: pointer;" class="exit">ادمین(<?= $_SESSION['loginadmin']['show_name'] ?>)</button>
+            <?php endif; ?>
         </div>
         <div class="mapContainer">
             <div id="map">
@@ -29,10 +31,10 @@
     </div>
     <div class="modal-overlay" style="display: none;">
         <div class="modal">
-            <span class="close"><img width="24" height="24" src="https://img.icons8.com/color/48/delete-sign--v1.png" alt="delete-sign--v1"/></span>
+            <span class="close"><img width="24" height="24" src="https://img.icons8.com/color/48/delete-sign--v1.png" alt="delete-sign--v1" /></span>
             <h3 class="modal-title">ثبت لوکیشن</h3>
             <div class="modal-content">
-                <form id='addLocationForm' action="<?=BASE_URL.'/process/addLocation.php'?>" method="post">
+                <form id='addLocationForm' action="<?= BASE_URL . '/process/addLocation.php' ?>" method="post">
                     <div class="field-row">
                         <div class="field-title">مختصات</div>
                         <div class="field-content">
@@ -51,9 +53,9 @@
                         <div class="field-content">
                             <select name="type" id="l-type">
                                 <option value="0" selected>انتخاب کنید</option>
-                                <?php foreach (locationTypes as $key => $value):?> 
-                                    <option style="font-family: sahel!important;" value="<?=$key?>"><?=$value?></option>
-                                    <?php endforeach; ?>
+                                <?php foreach (locationTypes as $key => $value): ?>
+                                    <option style="font-family: sahel!important;" value="<?= $key ?>"><?= $value ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -70,7 +72,17 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="<?=BASE_URL?>/assets/js/script.js<?= "?v=" . rand(10000, 50000) ?>"></script>
+    <script src="<?= BASE_URL ?>/assets/js/script.js<?= "?v=" . rand(10000, 50000) ?>"></script>
+    <?php if (!empty($location)): ?>
+        <script>
+            const coords = [<?= $location['lat'] ?>, <?= $location['lng'] ?>];
+            L.marker(coords).addTo(map).bindPopup("<?= $location['title'] ?>").openPopup();;
+            map.flyTo(coords, 13, {
+                animate: true,
+                duration: 1.5 // مدت زمان انیمیشن به ثانیه
+            });
+        </script>
+    <?php endif ?>
 </body>
 
 </html>
