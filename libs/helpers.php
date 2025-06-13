@@ -38,7 +38,7 @@ function sanitizeInput($data)
 }
 function dd($input)
 {
-    echo '<pre style="background:#1e1e1e;color:#dcdcdc;padding:10px;border-radius:5px;font-family:Consolas,Monaco,monospace;font-size:14px;line-height:1.5;z-index: 999;position:fixed;"><p style="color:green;margin:0 0 1px 0;"><strong>DEBUG:</strong></p>';
+    echo '<pre style="background: #1e1e1e; color: #dcdcdc; padding: 10px; border-radius: 5px; font-family: Consolas, Monaco, monospace; font-size: 14px; line-height: 1.5; z-index: 1000; position: fixed; direction: ltr; text-align: start; left: 0; /* ← این خط اضافه شده */ top: 0;  /* ← اگر می‌خوای از بالا هم بچسبه */ "><p style="color:green;margin:0 0 1px 0;"><strong>DEBUG:</strong></p>';
     print_r($input);
     echo '</pre>';
 }

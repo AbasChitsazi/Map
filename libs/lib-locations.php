@@ -54,21 +54,40 @@ function validateLatLng($lat, $lng)
 }
 
 
-function getlocation($params = [])
+function getlocation($params = [],$is_search=false)
 {
     global $pdo;
-    $conditions = '';
+    $conditions = [];
+    $values = [];
+
     if (isset($params['status'])) {
         if (!in_array($params['status'], [0, 1])) {
             return;
         }
-        $conditions = " WHERE status = " . $params['status'];
+        $conditions[] = "status = :status";
+        $values[':status'] = $params['status'];
     }
-    $sql = "select * from locations" . $conditions;
+
+    if (isset($params['keyword']) && $params['keyword'] !== '') {
+            $conditions[] = "status = 1";
+            $conditions[] = "title LIKE :keyword";
+        $values[':keyword'] = $params['keyword'] . '%';
+    }
+    if($is_search){
+        $conditions[] = "status = 1";
+    }
+    $where = '';
+    if (!empty($conditions)) {
+        $where = ' WHERE ' . implode(' AND ', $conditions);
+    }
+
+    $sql = "SELECT * FROM locations" . $where;
     $stmt = $pdo->prepare($sql);
-    $stmt->execute();
+    $stmt->execute($values);
     return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
+
+
 function getloc($id){
     global $pdo;
     $sql = "SELECT * FROM locations WHERE id = ?";

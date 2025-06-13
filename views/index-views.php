@@ -13,26 +13,18 @@
 </head>
 
 <body>
+
     <div class="main">
         <div class="head">
             <input type="text" id="search" placeholder="دنبال کجا می گردی؟">
             <div class="clear"></div>
-            <div class="search-results">
-                <div class="result-item" data-lat='111' data-lng='222'>
+            <div class="search-results" style="display: none;">
+                <!-- <div class="result-item" data-lat='111' data-lng='222'>
                     <span class="loc-type">رستوران</span>
                     <span class="loc-title">رستوران و قوه خانه سنتی سون لرن</span>
-                </div>
-                <div class="result-item" data-lat='111' data-lng='222'>
-                    <span class="loc-type">دانشگاه</span>
-                    <span class="loc-title">دانشگاه شریف</span>
-                </div>
+                </div> -->
             </div>
-            <?php if (userloggedin()): ?>
-                <a href="?logout=true"><button style="cursor: pointer;" class="exit">خروج (<?= $_SESSION['loginuser'][0]['name'] ?>)</button></a>
-            <?php endif; ?>
-            <?php if (adminLoggedin()): ?>
-                <button style="cursor: pointer;" class="exit">ادمین(<?= $_SESSION['loginadmin']['show_name'] ?>)</button>
-            <?php endif; ?>
+
         </div>
         <div class="mapContainer">
             <div id="map">
@@ -45,6 +37,12 @@
     </div>
     </div>
     </div>
+        <?php if (userloggedin()): ?>
+        <a href="?logout=true"><button style="cursor: pointer;" class="exit">خروج (<?= $_SESSION['loginuser'][0]['name'] ?>)</button></a>
+    <?php endif; ?>
+    <?php if (adminLoggedin()): ?>
+        <button style="cursor: pointer;" class="exit">ادمین(<?= $_SESSION['loginadmin']['show_name'] ?>)</button>
+    <?php endif; ?>
     <div class="modal-overlay" style="display: none;">
         <div class="modal">
             <span class="close"><img width="24" height="24" src="https://img.icons8.com/color/48/delete-sign--v1.png" alt="delete-sign--v1" /></span>
@@ -70,7 +68,7 @@
                             <select name="type" id="l-type">
                                 <option value="0" selected>انتخاب کنید</option>
                                 <?php foreach (locationTypes as $key => $value): ?>
-                                    <option style="font-family: sahel!important;" value="<?= $key ?>"><?= $value ?></option>
+                                    <option style="font-family: sahel!important;" value="<?= $key ?>"><?= $value['title'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -95,14 +93,14 @@
             L.marker(coords).addTo(map).bindPopup("<?= $location['title'] ?>").openPopup();;
             map.flyTo(coords, 13, {
                 animate: true,
-                duration: 1.5 // مدت زمان انیمیشن به ثانیه
+                duration: 1.5
             });
         </script>
     <?php endif ?>
     <?php if (userloggedin() || adminLoggedin()): ?>
         <script>
             map.on('locationfound', function(e) {
-                L.marker(e.latlng).addTo(map).bindPopup("You Are Here").openPopup();
+                L.marker(e.latlng).addTo(map).bindPopup("موقعیت فعلی شما").openPopup();
             })
 
             function locate() {
@@ -116,6 +114,25 @@
                 $('img.currentLoc').click(function() {
                     locate();
                 })
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#search').keyup(function() {
+                    const input = $(this);
+                    const searchresult = $('.search-results').html('')
+                    $.ajax({
+                        url: '<?= BASE_URL . '/process/search.php' ?>',
+                        method: 'POST',
+                        data: {
+                            keyword: input.val()
+                        },
+                        success: function(response) {
+                            searchresult.slideDown().html(response)
+                        },
+
+                    });
+                });
             });
         </script>
     <?php endif; ?>

@@ -303,17 +303,11 @@ img.currentLoc:hover {
     text-align: center;
 
 }
-.exit{
-float: left;
-  border: 1px solid #d8d6d2;
-  border-radius: 42px;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 10px;
-  padding: 10px 20px;
-  direction: rtl;
+.exit {
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  z-index: 9999;
   opacity: 0.9;
-  outline: 0;
-  margin-top: -97px;
-  margin-left: 20px;
+  border-radius: 5px;
 }

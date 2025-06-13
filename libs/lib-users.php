@@ -17,7 +17,7 @@ function loginadmin($params)
         array_key_exists($params['username'], $Admin_Config) &&
         password_verify($params['password'], $Admin_Config[$params['username']]['pass'])
     ) {
-        if (isset($_SESSION['loginuser'])) {
+        if (userloggedin()) {
             unset($_SESSION['loginuser']);
         }
         $_SESSION['loginadmin'] = $Admin_Config[$params['username']];
@@ -43,7 +43,7 @@ function loginUser($params)
     }
     $userData = getUserData($params['user-email']);
     if ($params['user-username'] === $userData[0]['name']  && $params['user-email'] === $userData[0]['email']) {
-        if (isset($_SESSION['loginadmin'])) {
+        if (adminLoggedin()) {
             unset($_SESSION['loginadmin']);
         }
         $_SESSION['loginuser'] = $userData;

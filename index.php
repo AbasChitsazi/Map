@@ -19,7 +19,7 @@ if (isset($_GET['loc']) && is_numeric($_GET['loc'])) {
         exit;
     }
     $location = getloc($_GET['loc']);
-
 }
+
 
 include BASE_PATH . "/views/index-views.php";
