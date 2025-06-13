@@ -18,16 +18,11 @@ This project is a Persian web application for map and location registration, dev
 
 ## Project Structure
 ```
-assets/
-  css/styles.css         # Project styles
-  js/script.js           # Main scripts
-  img/                   # Images
-  fonts/                 # Sahel Persian font
+assets/  
+bootstrap/ 
 views/
-  index-views.php        # Main page and forms
 process/
-  addLocation.php        # Location registration processing
-  search.php             # Location search
+libs/
 ```
 
 ## Setup
